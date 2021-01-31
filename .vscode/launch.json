@@ -19,11 +19,19 @@
         },
         {
             "type": "java",
-            "name": "Launch CalculatorTest",
+            "name": "CalculatorTest",
             "vmArgs":  "-ea",
             "request": "launch",
             "mainClass": "test.CalculatorTest",
             "projectName": "lesson1_e3c336ad"
-        }
+        },
+        {
+            "type": "java",
+            "name": "PiggyBankTest",
+            "vmArgs":  "-ea",
+            "request": "launch",
+            "mainClass": "test.PiggyBankTest",
+            "projectName": "lesson1_e3c336ad"
+        },
     ]
 }
