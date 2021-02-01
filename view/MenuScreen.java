@@ -34,11 +34,14 @@ public class MenuScreen {
             calc.init();
             window.pack();
             window.revalidate();
-            System.out.println("Calc button is pressed");
         });
 
         piggybankButton.addActionListener(e -> {
-            System.out.println("Piggybank button is pressed");
+            window.getContentPane().removeAll();
+            var piggybank = new PiggyBankSimulator(window);
+            piggybank.init();
+            window.pack();
+            window.revalidate();
         });
     }
 }
