@@ -7,6 +7,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
         var menu = new MenuScreen(window);
         menu.init();
 
