@@ -6,6 +6,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import app.App;
+import app.Utils;
+import model.Book;
 import view.AddBookTab;
 
 public class AddBookTabButtonClickListener implements ActionListener {
@@ -20,17 +26,10 @@ public class AddBookTabButtonClickListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String getValue = tab.getISBNField().getText();
-        System.out.println(getValue);
-        // var button = e.getSource();
-        // String m = panel.getDisplay().getText() + "\n";
-        // if(button == panel.getSubmitButton()) {
-        //     JFrame window = panel.getWindow();
-        //     window.getContentPane().removeAll();
-        //     var menu = new MenuScreen(window);
-        //     menu.init();
-        //     window.pack();
-        //     window.revalidate();
-        // } 
+        String isbn = tab.getISBNField().getText();
+        JsonObject bookJson = new Utils().get_book(isbn);
+
+        Book book = new Book(bookJson);
+        book.save();
     }
 }
