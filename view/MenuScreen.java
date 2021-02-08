@@ -12,8 +12,10 @@ import model.Library;
 public class MenuScreen {
     private JFrame window;
     private static Library library = new Library();
-    
-    public MenuScreen() { }
+
+    public MenuScreen() {
+    }
+
     public MenuScreen(JFrame window) {
         this.window = window;
         window.setTitle("Library Database");
@@ -32,10 +34,12 @@ public class MenuScreen {
 
         AddBookTab addBookTab = new AddBookTab();
         tabbedPane.add("Add Book", addBookTab.getPanel());
-        
+
         cp.add(tabbedPane);
     }
 
-    public Library getLibrary() { return library; }
+    public Library getLibrary() {
+        return library;
+    }
 
 }

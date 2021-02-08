@@ -12,17 +12,14 @@ import javax.swing.SwingConstants;
 import controller.AddBookTabButtonClickListener;
 import model.Book;
 
-
 public class AddBookTab {
     private JPanel panel = new JPanel();
     private JTextField isbnField = new JTextField(13);
     private JButton submitButton = new JButton("Submit");
 
-
-    
     public AddBookTab() {
         panel.setPreferredSize(new Dimension(800, 600));
-        
+
         JLabel label1 = new JLabel("Enter ISBN10 or ISBN13");
         panel.add(label1);
         panel.add(isbnField);
@@ -32,16 +29,22 @@ public class AddBookTab {
         submitButton.addActionListener(buttonClickListener);
     }
 
+    public JPanel getPanel() {
+        return this.panel;
+    }
 
+    public JButton getSubmitButton() {
+        return submitButton;
+    }
 
-    public JPanel getPanel() { return this.panel; }
-    public JButton getSubmitButton() { return submitButton; }
-    public JTextField getISBNField() { return isbnField; }
+    public JTextField getISBNField() {
+        return isbnField;
+    }
 
     public void showNewlyDownloadedBook(Book book) {
         JLabel label1 = new JLabel(book.getTitle());
         panel.add(label1);
         System.out.println("Recently downloaded: " + book.getTitle());
-        
+
     }
 }

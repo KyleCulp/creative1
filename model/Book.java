@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import app.Utils;
+import controller.Utils;
 
 public class Book {
 
@@ -118,16 +118,6 @@ public class Book {
     // book.get("first_sentence").getAsJsonObject().get("value").getAsString();
     // }
 
-    private void initializePhotos(JsonObject book) {
-        if(book.has("covers")) {
-            JsonArray jsonphotos = book.get("covers").getAsJsonArray();
-            for (int i = 0; i < photos.size(); i++) {
-                String url = "https://covers.openlibrary.org/a/id/" + jsonphotos.get(i).getAsString() + "-L.jpg";
-                photos.add(url);
-            }
-        }
-    }
-
     public void save() {
         Path currentPath = Paths.get(System.getProperty("user.dir"));
         Path path = Paths.get(currentPath.toString(), "data", "books", title + ".json");
@@ -135,11 +125,4 @@ public class Book {
         new Utils().saveStringToFile(path, json);
     }
 
-    // public Book(JsonObject book) {
-    // this.book = book;
-    // }
-
-    // public String[] getbooks() {
-
-    // }
 }

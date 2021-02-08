@@ -53,7 +53,7 @@ public class LibraryTab {
         // so that it doesn't inherit FlowLayout by default
         // boxPanel.setLayout(null);
         BoxLayout layout = new BoxLayout(boxPanel, BoxLayout.Y_AXIS);
-        boxPanel.setLayout(layout);       
+        boxPanel.setLayout(layout);
 
         Border blackline = BorderFactory.createLineBorder(Color.black);
         boxPanel.setBorder(blackline);
@@ -65,8 +65,7 @@ public class LibraryTab {
         boxPanel.add(new JLabel("Published: " + book.getPublishDate()));
         boxPanel.add(new JLabel("Pages: " + Integer.toString(book.getPages())));
 
-
-        if(!book.isPhotosEmpty()) {
+        if (!book.isPhotosEmpty()) {
             Image image = null;
             URL url = null;
             try {
@@ -80,7 +79,7 @@ public class LibraryTab {
 
             JLabel label = new JLabel(new ImageIcon(image));
             boxPanel.add(label, BorderLayout.CENTER);
-        
+
         }
 
         // boxPanel.add(new JLabel(book.getISBN10()));

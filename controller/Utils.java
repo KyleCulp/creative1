@@ -1,4 +1,4 @@
-package app;
+package controller;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -22,7 +22,6 @@ import com.google.gson.JsonObject;
 import model.Library;
 import view.MenuScreen;
 
-
 public class Utils {
     public JsonObject get_book(String isbn) {
         return getJson("https://openlibrary.org/isbn/" + isbn + ".json");
@@ -35,11 +34,11 @@ public class Utils {
     // Open Library redirects the isbn api to their books api, causing some issues
     private String getRealURL(String url) {
         try {
-            HttpURLConnection con = (HttpURLConnection)(new URL( url ).openConnection());
-            con.setInstanceFollowRedirects( false );
+            HttpURLConnection con = (HttpURLConnection) (new URL(url).openConnection());
+            con.setInstanceFollowRedirects(false);
             con.connect();
             int responseCode = con.getResponseCode();
-            String location = con.getHeaderField( "Location" );
+            String location = con.getHeaderField("Location");
             return location;
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -64,22 +63,26 @@ public class Utils {
     }
 
     public void saveStringToFile(Path path, String json) {
-        try {   
+        try {
             File file = new File(path.toString());
-            if(file.exists()) return;
+            if (file.exists())
+                return;
             BufferedWriter br = new BufferedWriter(new FileWriter(file));
             br.write(json);
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }   
+        }
     }
 
     public String findFile(String type) {
-        switch(type) {
-            case "Book": return _findFile("directory");
-            case "Author": return _findFile("directory");
-            default: return "lol";
+        switch (type) {
+            case "Book":
+                return _findFile("directory");
+            case "Author":
+                return _findFile("directory");
+            default:
+                return "lol";
         }
     }
 
@@ -89,7 +92,7 @@ public class Utils {
 
     public List<String> getOrCreateAuthors(JsonArray authorsArray) {
         List<String> authors = new ArrayList<String>();
-        for(int i=0; i < authorsArray.size(); i++) {
+        for (int i = 0; i < authorsArray.size(); i++) {
             JsonObject author = authorsArray.get(i).getAsJsonObject();
             String author_key = author.get("key").getAsString();
             String author_name = _getOrCreateAuthor(author_key);

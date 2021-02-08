@@ -31,8 +31,6 @@ public class AuthorsTab {
     private JButton submitButton = new JButton("Submit");
     private Library library;
 
-
-    
     public AuthorsTab(Library library) {
         this.library = library;
         GridLayout layout = new GridLayout(3, 0);
@@ -42,6 +40,7 @@ public class AuthorsTab {
         init();
 
     }
+
     private void init() {
         for (int i = 0; i < library.authorSize(); i++) {
             // panel.add(new JLabel(library.getBooks().get(i).getTitle()));
@@ -56,15 +55,14 @@ public class AuthorsTab {
         // so that it doesn't inherit FlowLayout by default
         // boxPanel.setLayout(null);
         BoxLayout layout = new BoxLayout(boxPanel, BoxLayout.Y_AXIS);
-        boxPanel.setLayout(layout);       
+        boxPanel.setLayout(layout);
 
         Border blackline = BorderFactory.createLineBorder(Color.black);
         boxPanel.setBorder(blackline);
 
         boxPanel.add(new JLabel("Name: " + author.getName()));
 
-
-        if(!author.isPhotosEmpty()) {
+        if (!author.isPhotosEmpty()) {
             Image image = null;
             URL url = null;
             try {
@@ -78,7 +76,7 @@ public class AuthorsTab {
 
             JLabel label = new JLabel(new ImageIcon(image));
             boxPanel.add(label, BorderLayout.CENTER);
-        
+
         }
 
         // boxPanel.add(new JLabel(book.getISBN10()));
@@ -86,8 +84,15 @@ public class AuthorsTab {
         return boxPanel;
     }
 
+    public JPanel getPanel() {
+        return this.panel;
+    }
 
-    public JPanel getPanel() { return this.panel; }
-    public JButton getSubmitButton() { return submitButton; }
-    public JTextField getISBNField() { return isbnField; }
+    public JButton getSubmitButton() {
+        return submitButton;
+    }
+
+    public JTextField getISBNField() {
+        return isbnField;
+    }
 }
