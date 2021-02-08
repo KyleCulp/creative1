@@ -75,21 +75,6 @@ public class Utils {
         }
     }
 
-    public String findFile(String type) {
-        switch (type) {
-            case "Book":
-                return _findFile("directory");
-            case "Author":
-                return _findFile("directory");
-            default:
-                return "lol";
-        }
-    }
-
-    private String _findFile(String directory) {
-        return "hmm";
-    }
-
     public List<String> getOrCreateAuthors(JsonArray authorsArray) {
         List<String> authors = new ArrayList<String>();
         for (int i = 0; i < authorsArray.size(); i++) {

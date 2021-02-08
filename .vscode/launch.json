@@ -6,32 +6,10 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
             "name": "Launch Main",
             "request": "launch",
             "mainClass": "Main",
-            "projectName": "lesson1_e3c336ad"
-        },
-        {
-            "type": "java",
-            "name": "CalculatorTest",
-            "vmArgs":  "-ea",
-            "request": "launch",
-            "mainClass": "test.CalculatorTest",
-            "projectName": "lesson1_e3c336ad"
-        },
-        {
-            "type": "java",
-            "name": "PiggyBankTest",
-            "vmArgs":  "-ea",
-            "request": "launch",
-            "mainClass": "test.PiggyBankTest",
-            "projectName": "lesson1_e3c336ad"
-        },
+            "projectName": "lesson1_e3c336a3"
+        }
     ]
 }
