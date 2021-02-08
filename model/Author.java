@@ -32,11 +32,16 @@ public class Author {
     public Author(JsonObject author) {
         this.name = author.get("name").getAsString();
         this.key = author.get("name").getAsString();
-        this.bio = author.get("bio").getAsString();
-        this.birthday = author.get("birthday").getAsString();
-        this.deathday = author.get("deathday").getAsString();
-        this.isni = author.get("isni").getAsString();
-        this.viaf = author.get("viaf").getAsString();
+        // if(author.has("bio")) { this.bio = author.get("bio").getAsString(); }
+        if(author.has("birthday")) { this.birthday = author.get("birthday").getAsString(); }
+        if(author.has("deathday")) { this.deathday = author.get("deathday").getAsString(); }
+        if(author.has("isni")) { this.isni = author.get("isni").getAsString(); }
+        if(author.has("viaf")) { this.viaf = author.get("viaf").getAsString(); }
+        
+        // this.birthday = author.get("birthday").getAsString();
+        // this.deathday = author.get("deathday").getAsString();
+        // this.isni = author.get("isni").getAsString();
+        // this.viaf = author.get("viaf").getAsString();
         this.websites = getWebsites(author);
         this.photos = getPhotos(author);
     }
@@ -50,6 +55,7 @@ public class Author {
     public String getViaf() { return viaf; }
     public List<String> getWebsites() { return websites; }
     public List<String> getPhotos() { return photos; }
+    public boolean isPhotosEmpty() { return photos.isEmpty(); }
 
 
     private List<String> getWebsites(JsonObject author) { 

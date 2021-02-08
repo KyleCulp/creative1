@@ -19,10 +19,15 @@ public class Library {
 
     public Library() {
         loadBooks();
+        loadAuthors();
     }
 
     public int size() {
         return books.size();
+    }
+
+    public int authorSize() {
+        return authors.size();
     }
 
     public List<Book> getBooks() { return books; }
@@ -50,7 +55,7 @@ public class Library {
     
     public void loadAuthors() {
         Path currentPath = Paths.get(System.getProperty("user.dir"));
-        Path dirPath = Paths.get(currentPath.toString(), "data", "books");
+        Path dirPath = Paths.get(currentPath.toString(), "data", "authors");
         File folder = new File(dirPath.toString());
         File[] listOfFiles = folder.listFiles();
 
@@ -59,8 +64,8 @@ public class Library {
                 Path file = listOfFiles[i].toPath();
                 try {
                 String json = new String(Files.readAllBytes(file));
-                Book book = new Gson().fromJson(json, Book.class);
-                books.add(book);
+                Author author = new Gson().fromJson(json, Author.class);
+                authors.add(author);
                 } catch(IOException e) {
                     e.printStackTrace();
                 }
@@ -81,7 +86,7 @@ public class Library {
 
     public String downloadAuthor(String author_key) {
         JsonObject authorJson = new Utils().get_author(author_key);
-        Author author = new Gson().fromJson(authorJson, Author.class);
+        Author author = new Author(authorJson);
         author.save();
 
         return author.getName();

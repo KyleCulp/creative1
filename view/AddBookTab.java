@@ -10,6 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import controller.AddBookTabButtonClickListener;
+import model.Book;
 
 
 public class AddBookTab {
@@ -36,4 +37,11 @@ public class AddBookTab {
     public JPanel getPanel() { return this.panel; }
     public JButton getSubmitButton() { return submitButton; }
     public JTextField getISBNField() { return isbnField; }
+
+    public void showNewlyDownloadedBook(Book book) {
+        JLabel label1 = new JLabel(book.getTitle());
+        panel.add(label1);
+        System.out.println("Recently downloaded: " + book.getTitle());
+        
+    }
 }

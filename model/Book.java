@@ -26,31 +26,68 @@ public class Book {
     private String first_sentence;
     private String openlibrary_key; // example: /books/OL7353617M
     private int pages;
-    private List<String> contributors;
-    private List<String> photos;  // json key: covers
+    private List<String> contributors = new ArrayList<String>();
+    private List<String> photos = new ArrayList<String>(); // json key: covers
 
-    public String getTitle() { return title; }
-    public List<String> getAuthors() { return authors; }
-    public String getPublishDate() { return publish_date; }
-    public String getISBN10() { return isbn_10; }
-    public String getISBN13() { return isbn_13; }
-    public String getFirstSentence() { return first_sentence; }
-    public String getOpenLibraryKey() { return openlibrary_key; }
-    public int getPages() { return pages; }
-    
+    public String getTitle() {
+        return title;
+    }
+
+    public List<String> getAuthors() {
+        return authors;
+    }
+
+    public String getPublishDate() {
+        return publish_date;
+    }
+
+    public String getISBN10() {
+        return isbn_10;
+    }
+
+    public String getISBN13() {
+        return isbn_13;
+    }
+
+    public String getFirstSentence() {
+        return first_sentence;
+    }
+
+    public String getOpenLibraryKey() {
+        return openlibrary_key;
+    }
+
+    public int getPages() {
+        return pages;
+    };
+
+    public String getFirstAuthor() {
+        if(authors.isEmpty()) return "nil";
+        return authors.get(0);
+    }
 
     public Book(JsonObject book) {
         this.title = book.get("title").getAsString();
-        this.authors = new Utils().getOrCreateAuthors(book.get("authors").getAsJsonArray());
+        if(book.has("authors")) {
+            this.authors = new Utils().getOrCreateAuthors(book.get("authors").getAsJsonArray());
+        }
         this.publish_date = book.get("publish_date").getAsString();
-        this.isbn_10 = book.get("isbn_10").getAsJsonArray().get(0).getAsString();
-        this.isbn_13 = book.get("isbn_13").getAsJsonArray().get(0).getAsString();
-        this.first_sentence = initializeFirstSentence(book);
-        this.pages = book.get("number_of_pages").getAsInt();
+        if (book.has("isbn_10")) {
+            this.isbn_10 = book.get("isbn_10").getAsJsonArray().get(0).getAsString();
+        }
+        if (book.has("isbn_13")) {
+            this.isbn_13 = book.get("isbn_13").getAsJsonArray().get(0).getAsString();
+        }
+        // this.first_sentence = initializeFirstSentence(book);
+        if (book.has("number_of_pages")) {
+            this.pages = book.get("number_of_pages").getAsInt();
+        }
         this.openlibrary_key = book.get("key").getAsString();
         // this.contributors = initializeContributors(book);
-        // this.photos = initializePhotos(book);
+        this.photos = getPhotos(book);
     }
+    public boolean isPhotosEmpty() { return photos.isEmpty(); }
+    public List<String> getPhotos() { return photos; }
 
     private List<String> initializeContributors(JsonObject book) {
         List<String> hold = new ArrayList<String>();
@@ -63,34 +100,46 @@ public class Book {
         return hold;
     }
 
-    private String initializeFirstSentence(JsonObject book) {
-        return book.get("first_sentence").getAsJsonObject().get("value").getAsString();
-    }
-
-    private List<String> initializePhotos(JsonObject book) {
+    private List<String> getPhotos(JsonObject book) {
         List<String> hold = new ArrayList<String>();
-        JsonArray photos = book.get("photos").getAsJsonArray();
+        JsonArray photos = book.get("covers").getAsJsonArray();
 
-        for (int i = 0; i < photos.size(); i++) {
-            String url = "https://covers.openlibrary.org/a/id/" + photos.get(i) + "-L.jpg";
+        for(int i=0; i < photos.size(); i++) {
+            String url = "https://covers.openlibrary.org/a/id/" + photos.get(i).getAsString() + "-L.jpg";
             hold.add(url);
         }
 
         return hold;
+     }
+
+    // private String initializeFirstSentence(JsonObject book) {
+    // if()
+    // return
+    // book.get("first_sentence").getAsJsonObject().get("value").getAsString();
+    // }
+
+    private void initializePhotos(JsonObject book) {
+        if(book.has("covers")) {
+            JsonArray jsonphotos = book.get("covers").getAsJsonArray();
+            for (int i = 0; i < photos.size(); i++) {
+                String url = "https://covers.openlibrary.org/a/id/" + jsonphotos.get(i).getAsString() + "-L.jpg";
+                photos.add(url);
+            }
+        }
     }
 
-    public void save()  {
+    public void save() {
         Path currentPath = Paths.get(System.getProperty("user.dir"));
         Path path = Paths.get(currentPath.toString(), "data", "books", title + ".json");
         String json = new Gson().toJson(this);
         new Utils().saveStringToFile(path, json);
     }
 
-// public Book(JsonObject book) {
-// this.book = book;
-// }
+    // public Book(JsonObject book) {
+    // this.book = book;
+    // }
 
-// public String[] getbooks() {
+    // public String[] getbooks() {
 
-// }
+    // }
 }

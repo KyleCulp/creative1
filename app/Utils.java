@@ -49,7 +49,6 @@ public class Utils {
 
     public JsonObject getJson(String url) {
         url = getRealURL(url);
-        System.out.println(url);
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
@@ -57,7 +56,6 @@ public class Utils {
         HttpResponse<String> response;
         try {
             response = client.send(request, BodyHandlers.ofString());
-            System.out.println(new Gson().fromJson(response.body(), JsonObject.class));
             return new Gson().fromJson(response.body(), JsonObject.class);
         } catch (IOException | InterruptedException e1) {
             e1.printStackTrace();
@@ -68,6 +66,7 @@ public class Utils {
     public void saveStringToFile(Path path, String json) {
         try {   
             File file = new File(path.toString());
+            if(file.exists()) return;
             BufferedWriter br = new BufferedWriter(new FileWriter(file));
             br.write(json);
             br.close();
@@ -102,16 +101,7 @@ public class Utils {
     private String _getOrCreateAuthor(String author_key) {
         Library library = new MenuScreen().getLibrary();
         String potentialAuthor = library.hasAuthor(author_key);
-        if(potentialAuthor != "nil") {
-
-        } else {
-
-        }
-        return "hmm";
+        return potentialAuthor;
     }
 
-
-    private void findAuthorOnFile(String author_key) {
-
-    }
 }

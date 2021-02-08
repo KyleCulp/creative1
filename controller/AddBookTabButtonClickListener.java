@@ -31,5 +31,6 @@ public class AddBookTabButtonClickListener implements ActionListener {
 
         Book book = new Book(bookJson);
         book.save();
+        tab.showNewlyDownloadedBook(book);
     }
 }

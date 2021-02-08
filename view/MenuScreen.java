@@ -11,7 +11,7 @@ import model.Library;
 
 public class MenuScreen {
     private JFrame window;
-    Library library = new Library();
+    private static Library library = new Library();
     
     public MenuScreen() { }
     public MenuScreen(JFrame window) {
@@ -22,12 +22,12 @@ public class MenuScreen {
     public void init() {
         Container cp = window.getContentPane();
         // JPanel panel = new JPanel();
-        cp.setPreferredSize(new Dimension(800, 400));
+        cp.setPreferredSize(new Dimension(800, 900));
         JTabbedPane tabbedPane = new JTabbedPane();
 
         LibraryTab libraryTab = new LibraryTab(library);
-        tabbedPane.add("Library", libraryTab.getPanel());
-        AuthorsTab authorsTab = new AuthorsTab();
+        tabbedPane.add("Library", new JScrollPane(libraryTab.getPanel()));
+        AuthorsTab authorsTab = new AuthorsTab(library);
         tabbedPane.add("Authors", authorsTab.getPanel());
 
         AddBookTab addBookTab = new AddBookTab();
